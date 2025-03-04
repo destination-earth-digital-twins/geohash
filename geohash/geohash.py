@@ -24,10 +24,12 @@ from math import log10
 #  alphabet described in IETF's RFC 4648
 #  (http://tools.ietf.org/html/rfc4648)
 __base32 = '0123456789bcdefghjkmnpqrstuvwxyz'
-__decodemap = { }
-for i in range(len(__base32)):
-    __decodemap[__base32[i]] = i
-del i
+__decodemap = {
+    '0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, 'b': 10,
+    'c': 11, 'd': 12, 'e': 13, 'f': 14, 'g': 15, 'h': 16, 'j': 17, 'k': 18, 'm': 19, 'n': 20,
+    'p': 21, 'q': 22, 'r': 23, 's': 24, 't': 25, 'u': 26, 'v': 27, 'w': 28, 'x': 29, 'y': 30,
+    'z': 31
+    }
 
 def decode_exactly(geohash):
     """
@@ -67,10 +69,12 @@ def decode(geohash):
     """
     lat, lon, lat_err, lon_err = decode_exactly(geohash)
     # Format to the number of decimals that are known
-    lats = "%.*f" % (max(1, int(round(-log10(lat_err)))) - 1, lat)
-    lons = "%.*f" % (max(1, int(round(-log10(lon_err)))) - 1, lon)
-    if '.' in lats: lats = lats.rstrip('0')
-    if '.' in lons: lons = lons.rstrip('0')
+    prec_lat = max(1, int(round(-log10(lat_err)))) - 1
+    prec_lon = max(1, int(round(-log10(lon_err)))) - 1
+    lats = f"{lat:.{prec_lat}f}"
+    lons = f"{lon:.{prec_lon}f}"
+    lats = lats.rstrip('0') if "." in lats else lats
+    lons = lons.rstrip('0') if "." in lons else lons
     return lats, lons
 
 def encode(latitude, longitude, precision=12):
