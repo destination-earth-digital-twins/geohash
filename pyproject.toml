@@ -1,0 +1,8 @@
+[project]
+name = "geohash"
+version = "1.0"
+authors = [
+    {name = "Leonard Norrgard", email = "leonard.norrgard@gmail.com"},
+]
+license = {text = "GNU General Public License v3"}
+description = "Module to decode/encode Geohashes to/from latitude and longitude. See http://en.wikipedia.org/wiki/Geohash"
