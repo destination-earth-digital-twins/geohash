@@ -18,7 +18,7 @@ You should have received a copy of the GNU Affero General Public
 License along with Geohash.  If not, see
 <http://www.gnu.org/licenses/>.
 """
-from math import log10
+from math import log10 as _log10
 
 #  Note: the alphabet in geohash differs from the common base32
 #  alphabet described in IETF's RFC 4648
@@ -69,8 +69,8 @@ def decode(geohash):
     """
     lat, lon, lat_err, lon_err = decode_exactly(geohash)
     # Format to the number of decimals that are known
-    prec_lat = max(1, int(round(-log10(lat_err)))) - 1
-    prec_lon = max(1, int(round(-log10(lon_err)))) - 1
+    prec_lat = max(1, int(round(-_log10(lat_err)))) - 1
+    prec_lon = max(1, int(round(-_log10(lon_err)))) - 1
     lats = f"{lat:.{prec_lat}f}"
     lons = f"{lon:.{prec_lon}f}"
     lats = lats.rstrip('0') if "." in lats else lats
