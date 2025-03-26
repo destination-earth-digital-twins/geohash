@@ -13,10 +13,11 @@ def test_encode():
     outhash = geohash.encode(42.6, -5.6, precision=5)
     assert outhash == "ezs42"
     outhash = geohash.encode(42.6, -5.6, precision=1)
+    assert outhash == "e"
 
 
 def test_decode():
-    lat, lon =  geohash.decode('ezs42')
+    lat, lon = geohash.decode('ezs42')
     assert lat == "42.6"
     assert lon == "-5.6"
 
