@@ -26,5 +26,6 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install .
+          pip install pytest
       - name: Run Tests
         run: python -m pytest -v --timeout=60
